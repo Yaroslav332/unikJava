@@ -1,4 +1,5 @@
 package ru.UnspokenRizz.TelegramBot.logic;
 
-public class BotRequest {
+public record BotRequest(String Data) {
+
 }
