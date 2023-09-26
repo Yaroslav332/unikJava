@@ -1,7 +1,6 @@
 package ru.UnspokenRizz.TelegramBot.logic;
 
-public record BotRequest(String Data) {
-    public String getData() {
-        return Data;
-    }
+import lombok.Getter;
+
+public record BotRequest(@Getter String Data) {
 }
