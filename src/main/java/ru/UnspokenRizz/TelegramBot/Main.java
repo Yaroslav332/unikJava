@@ -1,19 +1,20 @@
 package ru.UnspokenRizz.TelegramBot;
 
-import ru.UnspokenRizz.TelegramBot.console.ConsoleAnswerWriter;
-import ru.UnspokenRizz.TelegramBot.console.ConsoleInputReader;
-import ru.UnspokenRizz.TelegramBot.logic.BotRequest;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ru.UnspokenRizz.TelegramBot.logic.EchoMassageHandler;
+import ru.UnspokenRizz.TelegramBot.telegram.Bot;
 
 public class Main {
 
     public static void main(String[] args) {
-        ConsoleInputReader reader = new ConsoleInputReader();
-        ConsoleAnswerWriter writer = new ConsoleAnswerWriter();
-        EchoMassageHandler handler = new EchoMassageHandler();
-        while (true) {
-            BotRequest request = reader.getUserInput();
-            handler.handle(request, writer);
+        try {
+            Bot bot = new Bot(new EchoMassageHandler());
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(bot);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
         }
     }
 }
